@@ -17,18 +17,20 @@ class MainActivity : AppCompatActivity() {
         val tvOutRight = findViewById<TextView>(R.id.textRight)
 
         textViewLeft.addTextChangedListener {
-            if (textViewLeft.text != null){
+            if (textViewLeft.text.toString() != ""){
                 val num = textViewLeft.text.toString().toDouble()
                 val result = num * 0.13332239023
-                tvOutLeft.text = result.toString()
+                tvOutLeft.text = result.toString().format("%.2lf", result)
+            }else {
+                tvOutLeft.text = "0"
             }
         }
 
         textViewRight.addTextChangedListener {
-            if (textViewRight.text != null){
+            if (textViewRight.text.toString() != ""){
                 val num = textViewRight.text.toString().toDouble()
                 val result = num * 7.5006156
-                tvOutRight.text = result.toString()
+                tvOutRight.text = result.toString().format("%.2f")
             }else {
                 tvOutRight.text = "0"
             }
