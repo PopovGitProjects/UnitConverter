@@ -1,7 +1,7 @@
 package com.popov.unitconverter
 
 import android.os.Bundle
-import android.widget.TextView
+import android.text.Editable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.textfield.TextInputEditText
@@ -13,16 +13,13 @@ class MainActivity : AppCompatActivity() {
 
         val textViewLeft = findViewById<TextInputEditText>(R.id.editTextLeft)
         val textViewRight = findViewById<TextInputEditText>(R.id.editTextRight)
-        val tvOutLeft = findViewById<TextView>(R.id.textLeft)
-        val tvOutRight = findViewById<TextView>(R.id.textRight)
 
         textViewLeft.addTextChangedListener {
             if (textViewLeft.text.toString() != ""){
                 val num = textViewLeft.text.toString().toDouble()
                 val result = num * 0.13332239023
-                tvOutLeft.text = result.toString().format("%.2lf", result)
-            }else {
-                tvOutLeft.text = "0"
+//                val resultOut: Double = String.format("%.2f", result).toDouble()
+                textViewRight.text = Editable.Factory.getInstance().newEditable(result.toString())
             }
         }
 
@@ -30,9 +27,7 @@ class MainActivity : AppCompatActivity() {
             if (textViewRight.text.toString() != ""){
                 val num = textViewRight.text.toString().toDouble()
                 val result = num * 7.5006156
-                tvOutRight.text = result.toString().format("%.2f")
-            }else {
-                tvOutRight.text = "0"
+                textViewLeft.text = Editable.Factory.getInstance().newEditable(result.toString())
             }
         }
     }
