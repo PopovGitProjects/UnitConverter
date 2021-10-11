@@ -1,10 +1,10 @@
 package com.popov.unitconverter
 
 import android.os.Bundle
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.textfield.TextInputEditText
+import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,27 +13,37 @@ class MainActivity : AppCompatActivity() {
 
         val textViewLeft = findViewById<TextInputEditText>(R.id.editTextLeft)
         val textViewRight = findViewById<TextInputEditText>(R.id.editTextRight)
-        val tvOutLeft = findViewById<TextView>(R.id.textLeft)
-        val tvOutRight = findViewById<TextView>(R.id.textRight)
 
         textViewLeft.addTextChangedListener {
             if (textViewLeft.text.toString() != ""){
                 val num = textViewLeft.text.toString().toDouble()
-                val result = num * 0.13332239023
-                tvOutLeft.text = result.toString().format("%.2lf", result)
-            }else {
-                tvOutLeft.text = "0"
+                val result = decimalRound(num * 0.13332239023)
+                if (textViewRight.text.toString() == ""){
+                    textViewRight.setText(result.toString())
+                }
+            }else{
+                textViewRight.text = null
             }
         }
 
         textViewRight.addTextChangedListener {
             if (textViewRight.text.toString() != ""){
                 val num = textViewRight.text.toString().toDouble()
-                val result = num * 7.5006156
-                tvOutRight.text = result.toString().format("%.2f")
-            }else {
-                tvOutRight.text = "0"
+                val result = decimalRound(num * 7.5006156)
+                if (textViewLeft.text.toString() == ""){
+                    textViewLeft.setText(result.toString())
+                }
+            }else{
+                textViewLeft.text = null
             }
         }
+    }
+    private fun decimalRound(number: Double): Double{
+        var result = (number*10).roundToInt()
+        val dd = number*10 - result
+        if (dd >= 0.5){
+            result += 1
+        }
+        return result/ 10.toDouble()
     }
 }
