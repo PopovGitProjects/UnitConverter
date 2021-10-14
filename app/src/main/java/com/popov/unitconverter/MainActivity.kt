@@ -14,13 +14,12 @@ class MainActivity : AppCompatActivity() {
         val textViewLeft = findViewById<TextInputEditText>(R.id.editTextLeft)
         val textViewRight = findViewById<TextInputEditText>(R.id.editTextRight)
 
+        currentFocus
         textViewLeft.addTextChangedListener {
             if (textViewLeft.text.toString() != ""){
                 val num = textViewLeft.text.toString().toDouble()
                 val result = decimalRound(num * 0.13332239023)
-                if (textViewRight.text.toString() == ""){
-                    textViewRight.setText(result.toString())
-                }
+                textViewRight.setText(result.toString())
             }else{
                 textViewRight.text = null
             }
@@ -30,9 +29,7 @@ class MainActivity : AppCompatActivity() {
             if (textViewRight.text.toString() != ""){
                 val num = textViewRight.text.toString().toDouble()
                 val result = decimalRound(num * 7.5006156)
-                if (textViewLeft.text.toString() == ""){
-                    textViewLeft.setText(result.toString())
-                }
+                textViewLeft.setText(result.toString())
             }else{
                 textViewLeft.text = null
             }
