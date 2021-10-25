@@ -16,7 +16,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textEquals"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.257">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextLeft"
@@ -25,30 +26,22 @@
             android:hint="@string/mm_hg"
             android:inputType="numberDecimal"
             android:minWidth="120dp"
-            tools:ignore="TextContrastCheck" />
+            tools:ignore="TextContrastCheck,DuplicateSpeakableTextCheck" />
     </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:id="@+id/textEquals"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/equals"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutRight"
-        app:endIconMode="clear_text"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:endIconMode="clear_text"
         app:hintTextAppearance="@style/TextHint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textEquals"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintHorizontal_bias="0.14"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutLeft"
+        app:layout_constraintVertical_bias="0.086">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextRight"
@@ -57,8 +50,64 @@
             android:hint="@string/pa"
             android:inputType="numberDecimal"
             android:minWidth="120dp"
-            tools:ignore="TextContrastCheck" />
+            tools:ignore="TextContrastCheck,DuplicateSpeakableTextCheck" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/textEquals2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/equals"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.428" />
+
+    <TextView
+        android:id="@+id/textEquals"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/equals"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.273" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textFieldLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="88dp"
+        android:hint="@string/pa"
+        android:minWidth="120dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/textFieldRight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toEndOf="@+id/textEquals"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="TextContrastCheck" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textFieldRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="244dp"
+        android:hint="@string/mm_hg"
+        android:minWidth="120dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toEndOf="@+id/textEquals2"
+        app:layout_constraintTop_toBottomOf="@+id/textEquals"
+        app:layout_constraintVertical_bias="0.368"
+        tools:ignore="TextContrastCheck" />
 
 <!--    <TextView-->
 <!--        android:id="@+id/textLeft"-->
