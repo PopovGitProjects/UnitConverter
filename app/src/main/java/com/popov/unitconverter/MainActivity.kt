@@ -3,35 +3,35 @@ package com.popov.unitconverter
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
-import com.google.android.material.textfield.TextInputEditText
+import com.popov.unitconverter.databinding.ActivityMainBinding
 import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val textViewLeft = findViewById<TextInputEditText>(R.id.editTextLeft)
-        val textViewRight = findViewById<TextInputEditText>(R.id.editTextRight)
-
-        currentFocus
-        textViewLeft.addTextChangedListener {
-            if (textViewLeft.text.toString() != ""){
-                val num = textViewLeft.text.toString().toDouble()
+        binding.editTextLeft.addTextChangedListener {
+            if (binding.editTextLeft.text.toString() != ""){
+                val num = binding.editTextLeft.text.toString().toDouble()
                 val result = decimalRound(num * 0.13332239023)
-                textViewRight.setText(result.toString())
+                binding.editTextRight.setText(result.toString())
             }else{
-                textViewRight.text = null
+                binding.editTextRight.text = null
             }
         }
 
-        textViewRight.addTextChangedListener {
-            if (textViewRight.text.toString() != ""){
-                val num = textViewRight.text.toString().toDouble()
+        binding.editTextRight.addTextChangedListener {
+            if (binding.editTextRight.text.toString() != ""){
+                val num = binding.editTextRight.text.toString().toDouble()
                 val result = decimalRound(num * 7.5006156)
-                textViewLeft.setText(result.toString())
+                binding.editTextLeft.setText(result.toString())
             }else{
-                textViewLeft.text = null
+                binding.editTextLeft.text = null
             }
         }
     }
