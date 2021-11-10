@@ -3,6 +3,7 @@ package com.popov.unitconverter
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import com.popov.unitconverter.constants.Constants
 import com.popov.unitconverter.databinding.ActivityMainBinding
 import kotlin.math.roundToInt
 
@@ -15,23 +16,29 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.editTextLeft.addTextChangedListener {
-            if (binding.editTextLeft.text.toString() != ""){
+        binding.translateButton.setOnClickListener {
+            if (binding.editTextLeft.isFocused && binding.editTextLeft.text.toString() != "") {
                 val num = binding.editTextLeft.text.toString().toDouble()
-                val result = decimalRound(num * 0.13332239023)
+                val result = decimalRound(num * Constants.MMHG_CONST)
                 binding.editTextRight.setText(result.toString())
-            }else{
-                binding.editTextRight.text = null
+            }
+
+            if (binding.editTextRight.isFocused && binding.editTextRight.text.toString() != "") {
+                val num = binding.editTextRight.text.toString().toDouble()
+                val result = decimalRound(num * Constants.PA_CONST)
+                binding.editTextLeft.setText(result.toString())
+            }
+        }
+
+        binding.editTextLeft.addTextChangedListener {
+            if (binding.editTextLeft.isFocused && binding.editTextLeft.text.toString() == "") {
+                binding.editTextRight.setText("")
             }
         }
 
         binding.editTextRight.addTextChangedListener {
-            if (binding.editTextRight.text.toString() != ""){
-                val num = binding.editTextRight.text.toString().toDouble()
-                val result = decimalRound(num * 7.5006156)
-                binding.editTextLeft.setText(result.toString())
-            }else{
-                binding.editTextLeft.text = null
+            if (binding.editTextRight.isFocused && binding.editTextRight.text.toString() == "") {
+                binding.editTextLeft.setText("")
             }
         }
     }
@@ -41,6 +48,6 @@ class MainActivity : AppCompatActivity() {
         if (dd >= 0.5){
             result += 1
         }
-        return result/ 10.toDouble()
+        return result/ 10.0
     }
 }
