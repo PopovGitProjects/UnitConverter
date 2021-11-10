@@ -3,46 +3,42 @@ package com.popov.unitconverter
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
-import com.google.android.material.textfield.TextInputEditText
+import com.popov.unitconverter.constants.Constants
 import com.popov.unitconverter.databinding.ActivityMainBinding
 import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val textViewLeft = findViewById<TextInputEditText>(R.id.editTextLeft)
-        val textViewRight = findViewById<TextInputEditText>(R.id.editTextRight)
+        binding.translateButton.setOnClickListener {
+            if (binding.editTextLeft.isFocused && binding.editTextLeft.text.toString() != "") {
+                val num = binding.editTextLeft.text.toString().toDouble()
+                val result = decimalRound(num * Constants.MMHG_CONST)
+                binding.editTextRight.setText(result.toString())
+            }
 
-        val viewLeft = textViewLeft.isTextInputLayoutFocusedRectEnabled
-        val viewRight = textViewRight.isTextInputLayoutFocusedRectEnabled
-
-        textViewLeft.addTextChangedListener {
-            if (viewLeft){
-                if (textViewLeft.text.toString() != ""){
-                    val num = textViewLeft.text.toString().toDouble()
-                    val result = decimalRound(num * 0.13332239023)
-                    textViewRight.setText(result.toString())
-                }else{
-                    textViewRight.text = null
-                }
-
+            if (binding.editTextRight.isFocused && binding.editTextRight.text.toString() != "") {
+                val num = binding.editTextRight.text.toString().toDouble()
+                val result = decimalRound(num * Constants.PA_CONST)
+                binding.editTextLeft.setText(result.toString())
             }
         }
 
-        textViewRight.addTextChangedListener {
-            if (viewRight){
-                if (textViewRight.text.toString() != ""){
-                    val num = textViewRight.text.toString().toDouble()
-                    val result = decimalRound(num * 7.5006156)
-                    textViewLeft.setText(result.toString())
-                }else{
-                    textViewLeft.text = null
-                }
+        binding.editTextLeft.addTextChangedListener {
+            if (binding.editTextLeft.isFocused && binding.editTextLeft.text.toString() == "") {
+                binding.editTextRight.setText("")
+            }
+        }
 
+        binding.editTextRight.addTextChangedListener {
+            if (binding.editTextRight.isFocused && binding.editTextRight.text.toString() == "") {
+                binding.editTextLeft.setText("")
             }
         }
     }
@@ -52,6 +48,6 @@ class MainActivity : AppCompatActivity() {
         if (dd >= 0.5){
             result += 1
         }
-        return result/ 10.toDouble()
+        return result/ 10.0
     }
 }

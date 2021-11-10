@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Unit Converter</string>
     <string name="equals">=</string>
-    <string name="mm_hg">mm Hg</string>
-    <string name="pa">kPa</string>
-    <string name="_0">0</string>
+    <string name="mm_hg">mmHg</string>
+    <string name="pa">hPa</string>
+    <string name="translate_button">Translate</string>
 </resources>
