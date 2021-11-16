@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Конвертер</string>
+    <string name="equals">=</string>
+    <string name="mm_hg">mmHg</string>
+    <string name="pa">hPa</string>
+    <string name="translate_button">Перевести</string>
+</resources>
