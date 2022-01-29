@@ -18,11 +18,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.apply {
             translateButton.setOnClickListener{
-                if (!editTextLeft.text.isNullOrEmpty()){
+                if (!editTextLeft.text.isNullOrEmpty() && editTextLeft.isFocused){
                     editTextRight.setText(PressureCalculation()
                         .calculatePressure(editTextLeft, Constants.MMHG_CONST))
                 }
-                if (!editTextRight.text.isNullOrEmpty()){
+                if (!editTextRight.text.isNullOrEmpty() && editTextRight.isFocused){
                     editTextLeft.setText(PressureCalculation()
                         .calculatePressure(editTextRight, Constants.PA_CONST))
                 }
