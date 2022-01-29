@@ -3,9 +3,9 @@ package com.popov.unitconverter
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import com.popov.unitconverter.calculations.PressureCalculation
 import com.popov.unitconverter.constants.Constants
 import com.popov.unitconverter.databinding.ActivityMainBinding
-import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,38 +16,27 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.translateButton.setOnClickListener {
-            if (binding.editTextLeft.isFocused && binding.editTextLeft.text.toString() != "") {
-                val num = binding.editTextLeft.text.toString().toDouble()
-                val result = decimalRound(num * Constants.MMHG_CONST)
-                binding.editTextRight.setText(result.toString())
+        binding.apply {
+            translateButton.setOnClickListener{
+                if (!editTextLeft.text.isNullOrEmpty()){
+                    editTextRight.setText(PressureCalculation()
+                        .calculatePressure(editTextLeft, Constants.MMHG_CONST))
+                }
+                if (!editTextRight.text.isNullOrEmpty()){
+                    editTextLeft.setText(PressureCalculation()
+                        .calculatePressure(editTextRight, Constants.PA_CONST))
+                }
             }
-
-            if (binding.editTextRight.isFocused && binding.editTextRight.text.toString() != "") {
-                val num = binding.editTextRight.text.toString().toDouble()
-                val result = decimalRound(num * Constants.PA_CONST)
-                binding.editTextLeft.setText(result.toString())
+            editTextLeft.addTextChangedListener {
+                if (editTextLeft.text.isNullOrEmpty() && editTextLeft.isFocused){
+                    editTextRight.setText("")
+                }
             }
-        }
-
-        binding.editTextLeft.addTextChangedListener {
-            if (binding.editTextLeft.isFocused && binding.editTextLeft.text.toString() == "") {
-                binding.editTextRight.setText("")
-            }
-        }
-
-        binding.editTextRight.addTextChangedListener {
-            if (binding.editTextRight.isFocused && binding.editTextRight.text.toString() == "") {
-                binding.editTextLeft.setText("")
+            editTextRight.addTextChangedListener {
+                if (editTextRight.text.isNullOrEmpty() && editTextRight.isFocused){
+                    editTextLeft.setText("")
+                }
             }
         }
-    }
-    private fun decimalRound(number: Double): Double{
-        var result = (number*10).roundToInt()
-        val dd = number*10 - result
-        if (dd >= 0.5){
-            result += 1
-        }
-        return result/ 10.0
     }
 }
